@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<script async differ src="script.js"></script>
+	<title>Github Issues</title>
+</head>
+<body>
+	<div id="container">
+		<h2 id="pagenum">Page number 1</h2>
+		<ol id="list"></ol>
+		<div id="btn">
+		  <button id="load-prev">Previous Page</button>
+		  <button id="load-next">Next Page</button>
+		</div>
+	  </div>
+
+      <script>
+
+        const issuesList = document.getElementById("list");
+const pageNumberHeading = document.getElementById("pagenum");
+let currentPageNumber = 1;
+
+// Load the initial page of issues
+loadIssues(currentPageNumber);
+
+document.getElementById("load-prev").addEventListener("click", () => {
+  // Prevent going to page number 0
+  if (currentPageNumber > 1) {
+    currentPageNumber--;
+    loadIssues(currentPageNumber);
+    pageNumberHeading.innerText = `Page number ${currentPageNumber}`;
+  }
+});
+
+document.getElementById("load-next").addEventListener("click", () => {
+  currentPageNumber++;
+  loadIssues(currentPageNumber);
+  pageNumberHeading.innerText = `Page number ${currentPageNumber}`;
+});
+
+async function loadIssues(pageNumber) {
+  // Fetch issues data from GitHub API
+  const response = await fetch(`https://api.github.com/repositories/1296269/issues?page=${pageNumber}&per_page=5`);
+  const issuesData = await response.json();
+
+  // Clear the existing issues list
+  issuesList.innerHTML = "";
+
+  // Add each issue name to the list
+  issuesData.forEach(issue => {
+    const issueName = issue.title;
+    const listItem = document.createElement("li");
+    listItem.innerText = issueName;
+    issuesList.appendChild(listItem);
+  });
+}
+      </script>
+</body>
+</html>

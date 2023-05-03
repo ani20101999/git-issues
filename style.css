@@ -1,0 +1,33 @@
+#container {
+    max-width: 300px;
+    margin: 25px auto;
+    padding: 20px;
+    border: 1px solid black;
+  }
+  
+  #pagenum{
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  #list {
+    padding: 0;
+    margin: 0;
+  }
+  
+  #issues-list li {
+    margin-bottom: 10px;
+  }
+  
+  #btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
